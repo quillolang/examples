@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install quillo (main)
+        run: cargo install --locked --git https://github.com/quillolang/quillo quillo
+      - name: Check every example
+        run: for f in *.qwe services/*.qwe; do quillo check "$f"; done
