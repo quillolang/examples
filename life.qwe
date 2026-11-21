@@ -107,7 +107,8 @@ component Life() {
         </div>
         <div.board style={`grid-template-columns: repeat(${W}, 1fr)`}>
             {for y in range(0, H) => for x in range(0, W) =>
-                <i class={board[y][x] == 1 && "on"} @click={() => { board = flip(board, y, x) }}></i>}
+                <button type="button" class={board[y][x] == 1 && "on"} aria-pressed={board[y][x] == 1} aria-label={`Cell ${x + 1}, ${y + 1}`}
+                    @click={() => { board = flip(board, y, x) }}></button>}
         </div>
         <div.controls>
             {for p in patterns =>
@@ -140,13 +141,14 @@ button:disabled { opacity: .4; cursor: default; }
 .per-second { min-width: 2.5rem; font-variant-numeric: tabular-nums; }
 .stats { margin-left: auto; color: #666; font-variant-numeric: tabular-nums; }
 .board { display: grid; gap: 1px; background: #e8e8e8; border: 1px solid #e8e8e8; border-radius: 4px; overflow: hidden; }
-.board i { aspect-ratio: 1; background: white; cursor: pointer; }
-.board i.on { background: #1a7f37; }
+.board button { aspect-ratio: 1; background: white; cursor: pointer; border: 0; padding: 0; min-width: 0; }
+.board button.on { background: #1a7f37; }
+.board button:focus-visible { outline: 2px solid #0969da; outline-offset: -2px; }
 @media (prefers-color-scheme: dark) {
   body { background: #161616; color: #ddd; }
   button { background: #222; color: #ddd; border-color: #444; }
   button.primary { background: #ddd; color: #111; }
-  .board { background: #2a2a2a; border-color: #2a2a2a; } .board i { background: #161616; } .board i.on { background: #3fb950; }
+  .board { background: #2a2a2a; border-color: #2a2a2a; } .board button { background: #161616; } .board button.on { background: #3fb950; }
 }
 `
 
